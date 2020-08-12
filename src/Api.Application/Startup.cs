@@ -23,6 +23,15 @@ namespace application
         {
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
+            services.AddCors(o =>
+            {
+                o.AddDefaultPolicy(
+                b =>
+                {
+                    b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                }
+            );
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -62,6 +71,8 @@ namespace application
             });
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
